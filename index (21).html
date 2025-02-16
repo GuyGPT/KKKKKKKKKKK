@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INNOVX - Innovation & Excellence</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css">
+    <style>
+        /* Menu Mobile Styles */
+        .mobile-menu-button {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: var(--white-color);
+                padding: 1rem;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                z-index: 999;
+                max-height: calc(100vh - 70px);
+                overflow-y: auto;
+            }
+
+            .mobile-menu::-webkit-scrollbar {
+                width: 8px;
+            }
+
+            .mobile-menu::-webkit-scrollbar-track {
+                background: var(--white-color);
+                border-radius: 4px;
+            }
+
+            .mobile-menu::-webkit-scrollbar-thumb {
+                background: var(--primary-color);
+                border-radius: 4px;
+            }
+
+            .dark-theme .mobile-menu::-webkit-scrollbar-thumb {
+                background: var(--white-color);
+            }
+
+            .mobile-menu .dropdown-content {
+                max-height: 300px;
+                overflow-y: auto;
+            }
+
+            .mobile-menu .dropdown-content::-webkit-scrollbar {
+                width: 8px;
+            }
+
+            .mobile-menu .dropdown-content::-webkit-scrollbar-track {
+                background: var(--white-color);
+                border-radius: 4px;
+            }
+
+            .mobile-menu .dropdown-content::-webkit-scrollbar-thumb {
+                background: var(--primary-color);
+                border-radius: 4px;
+            }
+
+            .dark-theme .mobile-menu .dropdown-content::-webkit-scrollbar-thumb {
+                background: var(--white-color);
+            }
+        }
+
+        /* Logo styles */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        /* Hero text styles */
+        .hero-text {
+            text-align: center;
+            margin-bottom: 2rem;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .hero-text h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .hero-text h2 {
+            font-size: 1.8rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Image Gallery styles */
+        .gallery-section {
+            padding: 4rem 2rem;
+            background: var(--white-color);
+        }
+
+        .gallery-container {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .gallery-slide {
+            display: none;
+            text-align: center;
+        }
+
+        .gallery-slide.active {
+            display: block;
+        }
+
+        .gallery-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-img:hover {
+            transform: scale(1.02);
+        }
+
+        .gallery-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 1rem;
+        }
+
+        .gallery-btn {
+            background: var(--primary-color);
+            color: var(--white-color);
+            border: none;
+            padding: 1rem;
+            border-radius: 50%;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-btn:hover {
+            opacity: 1;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            padding: 2rem;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-img {
+            max-width: 90%;
+            max-height: 90vh;
+            object-fit: contain;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            color: var(--white-color);
+            font-size: 2rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu .nav-link {
+            display: block;
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        /* Sous-menus Styles */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            margin-top: 1rem;
+            background: var(--white-color);
+            min-width: 250px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            z-index: 1001;
+            border-radius: 8px;
+            padding: 1rem;
+        }
+
+        .dropdown-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .dropdown-content::-webkit-scrollbar-track {
+            background: var(--white-color);
+            border-radius: 4px;
+        }
+
+        .dropdown-content::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 4px;
+        }
+
+        .dark-theme .dropdown-content::-webkit-scrollbar-thumb {
+            background: var(--white-color);
+        }
+
+        .mobile-menu .dropdown-content {
+            position: relative;
+            box-shadow: none;
+            margin-left: 1rem;
+        }
+
+        .dropdown-content {
+            display: none;
+        }
+
+        .dropdown-content.show {
+            display: block;
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: var(--transition);
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            border: 1px solid var(--primary-color);
+            background: var(--white-color);
+        }
+
+        .dropdown-item i, 
+        .dropdown-item svg {
+            color: var(--primary-color);
+            margin-right: 0.8rem;
+        }
+
+        .dark-theme .dropdown-item {
+            color: var(--white-color);
+            border-color: var(--white-color);
+            background: var(--primary-color);
+        }
+
+        .dark-theme .dropdown-item i,
+        .dark-theme .dropdown-item svg {
+            color: var(--white-color);
+        }
+
+        /* Carousel buttons theme */
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: var(--primary-color) !important;
+        }
+
+        .dark-theme .swiper-button-next,
+        .dark-theme .swiper-button-prev {
+            color: var(--white-color) !important;
+        }
+
+        .swiper-button-next::after,
+        .swiper-button-prev::after {
+            font-size: 1.5rem !important;
+            font-weight: bold;
+            padding: 1rem;
+            border-radius: 50%;
+            background: var(--white-color);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .dark-theme .swiper-button-next::after,
+        .dark-theme .swiper-button-prev::after {
+            background: var(--primary-color);
+        }
+
+        .sub-category {
+            color: var(--primary-color);
+            font-weight: bold;
+            margin: 1rem 0 0.5rem 0;
+        }
+
+        .dark-theme .sub-category {
+            color: var(--white-color);
+        }
+
+        .section-header {
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.1rem;
+            padding: 0.5rem;
+            border-bottom: 2px solid var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .dark-theme .section-header {
+            color: var(--white-color);
+        }
+
+        .contact-info p {
+            color: var(--primary-color);
+        }
+
+        .dark-theme .contact-info p {
+            color: var(--white-color);
+        }
+
+        /* Mobile menu spacing */
+        .mobile-menu .nav-link {
+            margin-bottom: 1rem;
+            border: 1px solid var(--primary-color);
+        }
+
+        .dark-theme .mobile-menu .nav-link {
+            border-color: var(--white-color);
+        }
+
+        /* Carousel buttons theme */
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: var(--primary-color) !important;
+        }
+
+        .dark-theme .swiper-button-next,
+        .dark-theme .swiper-button-prev {
+            color: var(--white-color) !important;
+        }
+
+        .gallery-btn {
+            background: var(--primary-color);
+            color: var(--white-color);
+        }
+
+        .dark-theme .gallery-btn {
+            background: var(--white-color);
+            color: var(--primary-color);
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: var(--transition);
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(248, 224, 97, 0.1);
+        }
+
+        
+
+        .sub-category {
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin: 1rem 0 0.5rem 0;
+        }
+
+        .contact-info {
+            padding: 0.5rem;
+        }
+
+        .contact-info p {
+            margin: 0.5rem 0;
+        }
+
+        @font-face {
+            font-family: 'Futura Medium';
+            src: url('https://fonts.cdnfonts.com/css/futura-md-bt') format('woff2');
+        }
+
+        :root {
+            --primary-color: #040504;
+            --secondary-color: #F8E061;
+            --white-color: #FFFFFF;
+            --transition: all 0.3s ease;
+        }
+
+        .dark-theme {
+            --primary-color: #FFFFFF;
+            --white-color: #040504;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--white-color);
+            color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Futura Medium', sans-serif;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: var(--white-color);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--primary-color);
+            border-radius: 6px;
+            margin: 0 0.2rem;
+        }
+
+        .nav-link:hover {
+            color: var(--white-color);
+            background-color: var(--primary-color);
+        }
+
+        .theme-toggle, .lang-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover, .lang-toggle:hover {
+            color: var(--secondary-color);
+        }
+
+        .hero-section {
+            height: 100vh;
+            padding-top: 80px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .video-container {
+            width: 80%;
+            max-width: 1200px;
+            aspect-ratio: 16/9;
+            background: #000;
+            margin: 2rem 0;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .carousel-section {
+            padding: 4rem 2rem;
+            background-color: var(--white-color);
+        }
+
+        .swiper {
+            width: 100%;
+            height: 400px;
+        }
+
+        .swiper-slide {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .promo-text {
+            text-align: center;
+            max-width: 800px;
+            padding: 2rem;
+            background: rgba(248, 224, 97, 0.1);
+            border-radius: 12px;
+            border: 1px solid var(--secondary-color);
+        }
+
+        .promo-text h3 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .promo-text p {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            line-height: 1.6;
+        }
+
+        .why-us {
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-card {
+            background-color: var(--white-color);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: var(--transition);
+            width: 300px;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .footer {
+            background-color: var(--primary-color);
+            color: var(--white-color);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            color: var(--white-color);
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            color: var(--secondary-color);
+            transform: translateY(-5px);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-button {
+                display: block;
+            }
+            
+            .stats-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .dropdown-content {
+                width: 100%;
+                position: relative;
+                box-shadow: none;
+                padding-left: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo-container">
+                <img src="https://via.placeholder.com/50" alt="INNOVX Logo" class="logo-img">
+                <a href="#" class="logo">INNOVX</a>
+            </div>
+        <button class="mobile-menu-button" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="nav-links">
+            <div class="dropdown">
+                <a href="#services" class="nav-link" data-translate="services">Services</a>
+                <div class="dropdown-content">
+                    <div class="sub-category">Maintenance Professionnelle</div>
+                    <a href="#" class="dropdown-item"><i class="fas fa-tools"></i>Packs de Maintenance</a>
+                    <a href="#" class="dropdown-item"><i class="fas fa-bolt"></i>Maintenance Électrique</a>
+                    <a href="#" class="dropdown-item"><i class="fas fa-snowflake"></i>Maintenance Froid et Climatisation</a>
+                    
+                    <div class="sub-category">Services Numériques</div>
+                    <a href="#" class="dropdown-item"><i class="fas fa-globe"></i>Développement Web</a>
+                    <a href="#" class="dropdown-item"><i class="fas fa-laptop"></i>Maintenance Informatique</a>
+                    <a href="#" class="dropdown-item"><i class="fas fa-digital-tachograph"></i>Transformation Digitale</a>
+                    
+                    <div class="sub-category">Services d'Affaires</div>
+                    <a href="#" class="dropdown-item"><i class="fas fa-file-alt"></i>Secrétariat Public</a>
+                    <a href="#" class="dropdown-item"><i class="fas fa-book"></i>Librairie et Consommables</a>
+                    
+                    <div class="sub-category">Énergie et Environnement</div>
+                    <a href="#" class="dropdown-item"><i class="fas fa-solar-panel"></i>Solutions Énergétiques</a>
+                    <a href="#" class="dropdown-item"><i class="fas fa-clipboard-check"></i>Suivi Technique</a>
+                </div>
+            </div>
+            
+            <div class="dropdown">
+                <a href="#formation" class="nav-link" data-translate="formation">Formation</a>
+                <div class="dropdown-content">
+                    <div class="section-header">Formations en ligne & Formations en présentiel</div>
+                    <a href="#" class="dropdown-item"><i class="fas fa-desktop"></i>Bureautique</a>
+                    <a href="#" class="dropdown-item"><i class="fas fa-robot"></i>Intelligence artificielle</a>
+                    <a href="#" class="dropdown-item"><i class="fas fa-user-tie"></i>Développement Personnel</a>
+                    <a href="#" class="dropdown-item"><i class="fas fa-coins"></i>Intelligence Financière</a>
+                    <a href="#" class="dropdown-item"><i class="fas fa-calendar-alt"></i>Calendrier des Sessions</a>
+                </div>
+            </div>
+            
+            <div class="dropdown">
+                <a href="#coaching" class="nav-link" data-translate="coaching">Coaching/Mentorat</a>
+                <div class="dropdown-content">
+                    <div class="section-header">Mentorat en ligne & Mentorat en présentiel</div>
+                    <a href="#" class="dropdown-item"><i class="fas fa-briefcase"></i>Coaching Professionnel</a>
+                    <a href="#" class="dropdown-item"><i class="fas fa-bullseye"></i>Mentorat Personnalisé</a>
+                    <a href="#" class="dropdown-item"><i class="fas fa-users"></i>Programmes de Mentorat</a>
+                    <a href="#" class="dropdown-item"><i class="fas fa-video"></i>Conférences et Webinaires</a>
+                </div>
+            </div>
+            
+            <div class="dropdown">
+                <a href="#communaute" class="nav-link" data-translate="communaute">Communauté</a>
+                <div class="dropdown-content">
+                    <a href="#" class="dropdown-item"><i class="fab fa-facebook"></i>Facebook</a>
+                    <a href="#" class="dropdown-item"><i class="fab fa-telegram"></i>Telegram</a>
+                    <a href="#" class="dropdown-item">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 0.8rem;">
+                            <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/>
+                        </svg>X (Twitter)
+                    </a>
+                    <a href="#" class="dropdown-item"><i class="fab fa-whatsapp"></i>WhatsApp</a>
+                </div>
+            </div>
+            
+            <div class="dropdown">
+                <a href="#contact" class="nav-link" data-translate="contact">Contact</a>
+                <div class="dropdown-content">
+                    <div class="contact-info">
+                        <p><i class="fas fa-phone"></i> (+226) 65 53 97 34</p>
+                        <p><i class="fas fa-phone"></i> (+226) 01 07 31 07</p>
+                        <p><i class="fas fa-globe"></i> www.innovxpro.com</p>
+                        <p><i class="fas fa-envelope"></i> info@innovxpro.com</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Burkina Faso, Entrée de Réo, Secteur 3</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="dropdown">
+                <a href="#bientot" class="nav-link" data-translate="bientot">Bientôt</a>
+                <div class="dropdown-content">
+                    <a href="#" class="dropdown-item"><i class="fas fa-coins"></i>CRYPTO</a>
+                    <a href="#" class="dropdown-item"><i class="fas fa-store"></i>PLACE DE MARCHÉ</a>
+                </div>
+            </div>
+            
+            <button class="theme-toggle" onclick="toggleTheme()">
+                <i class="fas fa-moon"></i>
+            </button>
+            <button class="lang-toggle" onclick="toggleLanguage()">
+                FR/EN
+            </button>
+        </div>
+        
+        <!-- Menu Mobile -->
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="dropdown">
+                <a href="#services" class="nav-link" data-translate="services">Services</a>
+                <div class="dropdown-content">
+                    <div class="sub-category">Maintenance Professionnelle</div>
+                    <a href="#" class="dropdown-item"><i class="fas fa-tools"></i>Packs de Maintenance</a>
+                    <a href="#" class="dropdown-item"><i class="fas fa-bolt"></i>Maintenance Électrique</a>
+                    <a href="#" class="dropdown-item"><i class="fas fa-snowflake"></i>Maintenance Froid et Climatisation</a>
+                    
+                    <div class="sub-category">Services Numériques</div>
+                    <a href="#" class="dropdown-item"><i class="fas fa-globe"></i>Développement Web</a>
+                    <a href="#" class="dropdown-item"><i class="fas fa-laptop"></i>Maintenance Informatique</a>
+                    <a href="#" class="dropdown-item"><i class="fas fa-digital-tachograph"></i>Transformation Digitale</a>
+                    
+                    <div class="sub-category">Services d'Affaires</div>
+                    <a href="#" class="dropdown-item"><i class="fas fa-file-alt"></i>Secrétariat Public</a>
+                    <a href="#" class="dropdown-item"><i class="fas fa-book"></i>Librairie et Consommables</a>
+                    
+                    <div class="sub-category">Énergie et Environnement</div>
+                    <a href="#" class="dropdown-item"><i class="fas fa-solar-panel"></i>Solutions Énergétiques</a>
+                    <a href="#" class="dropdown-item"><i class="fas fa-clipboard-check"></i>Suivi Technique</a>
+                </div>
+            </div>
+            
+            <div class="dropdown">
+                <a href="#formation" class="nav-link" data-translate="formation">Formation</a>
+                <div class="dropdown-content">
+                    <div class="section-header">Formations en ligne & Formations en présentiel</div>
+                    <a href="#" class="dropdown-item"><i class="fas fa-desktop"></i>Bureautique</a>
+                    <a href="#" class="dropdown-item"><i class="fas fa-robot"></i>Intelligence artificielle</a>
+                    <a href="#" class="dropdown-item"><i class="fas fa-user-tie"></i>Développement Personnel</a>
+                    <a href="#" class="dropdown-item"><i class="fas fa-coins"></i>Intelligence Financière</a>
+                    <a href="#" class="dropdown-item"><i class="fas fa-calendar-alt"></i>Calendrier des Sessions</a>
+                </div>
+            </div>
+            
+            <div class="dropdown">
+                <a href="#coaching" class="nav-link" data-translate="coaching">Coaching/Mentorat</a>
+                <div class="dropdown-content">
+                    <div class="section-header">Mentorat en ligne & Mentorat en présentiel</div>
+                    <a href="#" class="dropdown-item"><i class="fas fa-briefcase"></i>Coaching Professionnel</a>
+                    <a href="#" class="dropdown-item"><i class="fas fa-bullseye"></i>Mentorat Personnalisé</a>
+                    <a href="#" class="dropdown-item"><i class="fas fa-users"></i>Programmes de Mentorat</a>
+                    <a href="#" class="dropdown-item"><i class="fas fa-video"></i>Conférences et Webinaires</a>
+                </div>
+            </div>
+            
+            <div class="dropdown">
+                <a href="#communaute" class="nav-link" data-translate="communaute">Communauté</a>
+                <div class="dropdown-content">
+                    <a href="#" class="dropdown-item"><i class="fab fa-facebook"></i>Facebook</a>
+                    <a href="#" class="dropdown-item"><i class="fab fa-telegram"></i>Telegram</a>
+                    <a href="#" class="dropdown-item">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 0.8rem;">
+                            <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/>
+                        </svg>X (Twitter)
+                    </a>
+                    <a href="#" class="dropdown-item"><i class="fab fa-whatsapp"></i>WhatsApp</a>
+                </div>
+            </div>
+            
+            <div class="dropdown">
+                <a href="#contact" class="nav-link" data-translate="contact">Contact</a>
+                <div class="dropdown-content">
+                    <div class="contact-info">
+                        <p><i class="fas fa-phone"></i> (+226) 65 53 97 34</p>
+                        <p><i class="fas fa-phone"></i> (+226) 01 07 31 07</p>
+                        <p><i class="fas fa-globe"></i> www.innovxpro.com</p>
+                        <p><i class="fas fa-envelope"></i> info@innovxpro.com</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Burkina Faso, Entrée de Réo, Secteur 3</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="dropdown">
+                <a href="#bientot" class="nav-link" data-translate="bientot">Bientôt</a>
+                <div class="dropdown-content">
+                    <a href="#" class="dropdown-item"><i class="fas fa-coins"></i>CRYPTO</a>
+                    <a href="#" class="dropdown-item"><i class="fas fa-store"></i>PLACE DE MARCHÉ</a>
+                </div>
+            </div>
+            
+            <button class="theme-toggle" onclick="toggleTheme()">
+                <i class="fas fa-moon"></i>
+            </button>
+            <button class="lang-toggle" onclick="toggleLanguage()">
+                FR/EN
+            </button>
+        </div>
+    </nav>
+
+    <section class="hero-section">
+        <div class="hero-text">
+            <h1>InnovX SARL</h1>
+            <h2>Votre partenaire d'affaires innovant</h2>
+            <p>Solutions professionnelles sur mesure, formations pratiques et opportunités d'affaires exclusives</p>
+        </div>
+        <div class="video-container">
+            <!-- Remplacer par votre vidéo -->
+            <video width="100%" height="100%" controls>
+                <source src="votre-video.mp4" type="video/mp4">
+                Votre navigateur ne supporte pas la vidéo.
+            </video>
+        </div>
+    </section>
+
+    <section class="carousel-section">
+        <div class="swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="promo-text">
+                        <h3>Excellence et Innovation</h3>
+                        <p>Des solutions sur mesure pour votre réussite professionnelle</p>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="promo-text">
+                        <h3>Formation Continue</h3>
+                        <p>Développez vos compétences avec nos experts certifiés</p>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="promo-text">
+                        <h3>Support 24/7</h3>
+                        <p>Une équipe dédiée à votre service à tout moment</p>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+    </section>
+
+    <section class="gallery-section">
+        <div class="gallery-container">
+            <div class="gallery-slide active">
+                <img src="https://picsum.photos/800/600?random=1" alt="Gallery Image 1" class="gallery-img">
+            </div>
+            <div class="gallery-slide">
+                <img src="https://picsum.photos/800/600?random=2" alt="Gallery Image 2" class="gallery-img">
+            </div>
+            <div class="gallery-slide">
+                <img src="https://picsum.photos/800/600?random=3" alt="Gallery Image 3" class="gallery-img">
+            </div>
+            <div class="gallery-nav">
+                <button class="gallery-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
+                <button class="gallery-btn next-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal for full-size images -->
+    <div class="modal" id="imageModal">
+        <button class="modal-close">&times;</button>
+        <img src="" alt="Full size image" class="modal-img">
+    </div>
+
+    <section class="why-us">
+        <h2>Pourquoi Nous Choisir</h2>
+        <div class="stats-container">
+            <div class="stat-card">
+                <i class="fas fa-user-tie stat-icon"></i>
+                <div class="stat-number">7</div>
+                <h3>Experts Dévoués</h3>
+                <p>100% Satisfaction Client</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-headset stat-icon"></i>
+                <div class="stat-number">24/7</div>
+                <h3>Assistance Client</h3>
+                <p>4853 clients satisfaits</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-users stat-icon"></i>
+                <div class="stat-number">7546</div>
+                <h3>Inscriptions au Site</h3>
+                <p>Et ça continue d'augmenter!</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="social-links">
+            <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+            <a href="#" class="social-link">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/>
+                </svg>
+            </a>
+            <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script>
+        // Initialisation du carrousel
+        const swiper = new Swiper('.swiper', {
+            loop: true,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            autoplay: {
+                delay: 5000,
+            },
+        });
+
+        // Fonction pour changer le thème
+        function toggleTheme() {
+            document.body.classList.toggle('dark-theme');
+            const themeIcon = document.querySelector('.theme-toggle i');
+            themeIcon.classList.toggle('fa-moon');
+            themeIcon.classList.toggle('fa-sun');
+        }
+
+        // Variables pour le changement de langue
+        let currentLang = 'fr';
+        // Fonction pour le menu mobile
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+            
+            // Toggle hamburger icon
+            const hamburger = document.querySelector('.mobile-menu-button i');
+            hamburger.classList.toggle('fa-bars');
+            hamburger.classList.toggle('fa-times');
+        }
+
+        const translations = {
+            fr: {
+                services: 'Services',
+                formation: 'Formation',
+                coaching: 'Coaching/Mentorat',
+                communaute: 'Communauté',
+                contact: 'Contact',
+                bientot: 'Bientôt',
+                whyUs: 'Pourquoi Nous Choisir',
+                experts: 'Experts Dévoués',
+                satisfaction: '100% Satisfaction Client',
+                assistance: 'Assistance Client',
+                inscriptions: 'Inscriptions au Site',
+                maintenance: 'Maintenance Professionnelle',
+                digital: 'Services Numériques',
+                business: 'Services d\'Affaires',
+                energy: 'Énergie et Environnement',
+                online: 'Formations en ligne',
+                inPerson: 'Formations en présentiel',
+                schedule: 'Calendrier des Sessions',
+                mentoring: 'Programmes de Mentorat',
+                conferences: 'Conférences et Webinaires',
+                marketplace: 'Place de Marché',
+                crypto: 'CRYPTO'
+            },
+            en: {
+                services: 'Services',
+                formation: 'Training',
+                coaching: 'Coaching/Mentoring',
+                communaute: 'Community',
+                contact: 'Contact',
+                bientot: 'Coming Soon',
+                whyUs: 'Why Choose Us',
+                experts: 'Dedicated Experts',
+                satisfaction: '100% Customer Satisfaction',
+                assistance: 'Customer Support',
+                inscriptions: 'Website Registrations',
+                maintenance: 'Professional Maintenance',
+                digital: 'Digital Services',
+                business: 'Business Services',
+                energy: 'Energy & Environment',
+                online: 'Online Training',
+                inPerson: 'In-Person Training',
+                schedule: 'Session Schedule',
+                mentoring: 'Mentoring Programs',
+                conferences: 'Conferences & Webinars',
+                marketplace: 'Marketplace',
+                crypto: 'CRYPTO'
+            }
+        };
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'fr' ? 'en' : 'fr';
+            updateLanguage();
+        }
+
+        // Gestion des clics sur les dropdowns
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                const dropdowns = document.querySelectorAll('.dropdown');
+                
+                dropdowns.forEach(dropdown => {
+                    const link = dropdown.querySelector('.nav-link');
+                    const content = dropdown.querySelector('.dropdown-content');
+                    
+                    if (link && content) {
+                        link.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            
+                            // Ferme tous les autres dropdowns
+                            dropdowns.forEach(otherDropdown => {
+                                if (otherDropdown !== dropdown) {
+                                    const otherContent = otherDropdown.querySelector('.dropdown-content');
+                                    if (otherContent) {
+                                        otherContent.classList.remove('show');
+                                    }
+                                }
+                            });
+                            
+                            // Toggle le dropdown actuel
+                            content.classList.toggle('show');
+                        });
+                    }
+                });
+                
+                // Ferme les dropdowns si on clique en dehors
+                document.addEventListener('click', function(e) {
+                    if (!e.target.closest('.dropdown')) {
+                        document.querySelectorAll('.dropdown-content').forEach(content => {
+                            content.classList.remove('show');
+                        });
+                    }
+                });
+
+                // Empêche la fermeture lors du clic dans le dropdown
+                document.querySelectorAll('.dropdown-content').forEach(content => {
+                    content.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                    });
+                });
+            } catch (error) {
+                console.error('Error in dropdown initialization:', error);
+            }
+        });
+
+        // Gallery functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                let currentSlide = 0;
+                const slides = document.querySelectorAll('.gallery-slide');
+                const modal = document.getElementById('imageModal');
+                const modalImg = document.querySelector('.modal-img');
+                const prevBtn = document.querySelector('.prev-btn');
+                const nextBtn = document.querySelector('.next-btn');
+                const modalClose = document.querySelector('.modal-close');
+
+                if (slides.length > 0) {
+                    function showSlide(n) {
+                        slides.forEach(slide => slide.classList.remove('active'));
+                        currentSlide = ((n % slides.length) + slides.length) % slides.length;
+                        slides[currentSlide].classList.add('active');
+                    }
+
+                    if (prevBtn) {
+                        prevBtn.addEventListener('click', () => showSlide(currentSlide - 1));
+                    }
+                    
+                    if (nextBtn) {
+                        nextBtn.addEventListener('click', () => showSlide(currentSlide + 1));
+                    }
+
+                    // Modal functionality
+                    document.querySelectorAll('.gallery-img').forEach(img => {
+                        img.addEventListener('click', function() {
+                            if (modal && modalImg) {
+                                modal.classList.add('active');
+                                modalImg.src = this.src;
+                            }
+                        });
+                    });
+
+                    if (modalClose) {
+                        modalClose.addEventListener('click', () => {
+                            modal.classList.remove('active');
+                        });
+                    }
+
+                    if (modal) {
+                        modal.addEventListener('click', function(e) {
+                            if (e.target === modal) {
+                                modal.classList.remove('active');
+                            }
+                        });
+                    }
+                }
+            } catch (error) {
+                console.error('Error in gallery initialization:', error);
+            }
+        });
+
+        function updateLanguage() {
+            // Mettre à jour les textes selon la langue sélectionnée
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                element.textContent = translations[currentLang][key];
+            });
+        }
+    </script>
+</body>
+</html>
