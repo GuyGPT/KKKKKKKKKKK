@@ -286,18 +286,24 @@
             display: block;
         }
 
-        .dropdown-item {
-            display: flex;
-            align-items: center;
-            padding: 0.8rem 1rem;
-            color: var(--primary-color);
-            text-decoration: none;
-            transition: var(--transition);
-            border-radius: 6px;
-            margin-bottom: 0.5rem;
-            border: 1px solid var(--primary-color);
-            background: var(--white-color);
-        }
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: var(--transition);
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+}
+
+/* Black borders for items with icons in light mode */
+.dropdown-item:has(i),
+.dropdown-item:has(svg) {
+    border-color: #000000;
+}
 
         .dropdown-item i, 
         .dropdown-item svg {
@@ -305,15 +311,48 @@
             margin-right: 0.8rem;
         }
 
+        .dark-theme {
+            --primary-color: #F8E061;
+            --secondary-color: #040504;
+            --text-color: #FFFFFF;
+            --background-color: #040504;
+            --border-color: #F8E061;
+            font-family: 'Futura Medium', 'Poppins', sans-serif;
+        }
+
         .dark-theme .dropdown-item {
-            color: var(--white-color);
-            border-color: var(--white-color);
-            background: var(--primary-color);
+            color: #FFFFFF;
+            border-color: #F8E061;
+            background: #040504;
+            font-family: 'Poppins', sans-serif;
         }
 
         .dark-theme .dropdown-item i,
         .dark-theme .dropdown-item svg {
-            color: var(--white-color);
+            color: #F8E061;
+        }
+
+        /* Specific styles for contact dropdown */
+        .dark-theme #contact .dropdown-content .dropdown-item {
+            border: 2px solid #F8E061;
+        }
+
+        .dark-theme #contact .dropdown-content .dropdown-item i,
+        .dark-theme #contact .dropdown-content .dropdown-item svg {
+            color: #F8E061;
+        }
+
+        #contact .dropdown-content .dropdown-item {
+            border: 2px solid #FFFFFF;
+        }
+
+        #contact .dropdown-content .dropdown-item i,
+        #contact .dropdown-content .dropdown-item svg {
+            color: #FFFFFF;
+        }
+
+        .dark-theme .dropdown-item:hover {
+            background: rgba(248, 224, 97, 0.1);
         }
 
         /* Carousel buttons theme */
@@ -446,16 +485,65 @@
             src: url('https://fonts.cdnfonts.com/css/futura-md-bt') format('woff2');
         }
 
-        :root {
-            --primary-color: #040504;
-            --secondary-color: #F8E061;
-            --white-color: #FFFFFF;
-            --transition: all 0.3s ease;
+:root {
+    --primary-color: #000000;
+    --secondary-color: #000000;
+    --white-color: #FFFFFF;
+    --transition: all 0.3s ease;
+}
+
+.dark-theme {
+    --primary-color: #F8E061; /* Yellow for primary elements */
+    --secondary-color: #FFFFFF; /* White for secondary elements */
+    --white-color: #121212; /* Darker background */
+    --text-color: #F5F5F5; /* Brighter text */
+    --submenu-bg: #1E1E1E; /* Darker submenu background */
+    --border-color: #333333; /* Darker borders */
+    --icon-color: #F8E061; /* Yellow for icons */
+    --hover-bg: rgba(248, 224, 97, 0.15); /* Slightly stronger hover */
+    --card-bg: #1E1E1E; /* Card backgrounds */
+    --shadow-color: rgba(0,0,0,0.3); /* Darker shadows */
+    --disabled-color: #666666; /* Disabled elements */
+}
+
+        /* Dark mode text improvements */
+        .dark-theme .nav-link,
+        .dark-theme .dropdown-item,
+        .dark-theme .sub-category,
+        .dark-theme .section-header,
+        .dark-theme .contact-info p {
+            color: var(--text-color);
         }
 
-        .dark-theme {
-            --primary-color: #FFFFFF;
-            --white-color: #040504;
+        /* Submenu image galleries */
+        .dropdown-content {
+            background: var(--white-color);
+        }
+
+        .dropdown-item {
+            background-color: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        /* Toggle button styling */
+        .theme-toggle, .lang-toggle {
+            border: 2px solid #000000 !important;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            margin: 0 0.5rem;
+        }
+
+.dark-theme .theme-toggle,
+.dark-theme .lang-toggle {
+    border: 2px solid #F8E061 !important;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    margin: 0 0.5rem;
+}
+
+        .theme-toggle:hover, .lang-toggle:hover {
+            background-color: rgba(248, 224, 97, 0.1);
         }
 
         * {
@@ -680,9 +768,9 @@
         <button class="mobile-menu-button" onclick="toggleMobileMenu()">
             <i class="fas fa-bars"></i>
         </button>
-        <div class="nav-links">
+<div class="nav-links">
             <div class="dropdown">
-                <a href="#services" class="nav-link" data-translate="services">Services</a>
+                <a href="#services" class="nav-link" data-translate="services"><i class="fas fa-wrench"></i> Services</a>
                 <div class="dropdown-content">
                     <div class="sub-category">Maintenance Professionnelle</div>
                     <a href="#" class="dropdown-item"><i class="fas fa-tools"></i>Packs de Maintenance</a>
@@ -705,7 +793,7 @@
             </div>
             
             <div class="dropdown">
-                <a href="#formation" class="nav-link" data-translate="formation">Formation</a>
+                <a href="#formation" class="nav-link" data-translate="formation"><i class="fas fa-graduation-cap"></i> Formation</a>
                 <div class="dropdown-content">
                     <div class="section-header">Formations en ligne & Formations en présentiel</div>
                     <a href="#" class="dropdown-item"><i class="fas fa-desktop"></i>Bureautique</a>
@@ -717,7 +805,7 @@
             </div>
             
             <div class="dropdown">
-                <a href="#coaching" class="nav-link" data-translate="coaching">Coaching/Mentorat</a>
+                <a href="#coaching" class="nav-link" data-translate="coaching"><i class="fas fa-chart-line"></i> Coaching/Mentorat</a>
                 <div class="dropdown-content">
                     <div class="section-header">Mentorat en ligne & Mentorat en présentiel</div>
                     <a href="#" class="dropdown-item"><i class="fas fa-briefcase"></i>Coaching Professionnel</a>
@@ -728,21 +816,21 @@
             </div>
             
             <div class="dropdown">
-                <a href="#communaute" class="nav-link" data-translate="communaute">Communauté</a>
+                <a href="#communaute" class="nav-link" data-translate="communaute"><i class="fas fa-users"></i> Communauté</a>
                 <div class="dropdown-content">
                     <a href="#" class="dropdown-item"><i class="fab fa-facebook"></i>Facebook</a>
                     <a href="#" class="dropdown-item"><i class="fab fa-telegram"></i>Telegram</a>
                     <a href="#" class="dropdown-item">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 0.8rem;">
                             <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/>
-                        </svg>X (Twitter)
+                        </svg> (Twitter)
                     </a>
                     <a href="#" class="dropdown-item"><i class="fab fa-whatsapp"></i>WhatsApp</a>
                 </div>
             </div>
             
             <div class="dropdown">
-                <a href="#contact" class="nav-link" data-translate="contact">Contact</a>
+                <a href="#contact" class="nav-link" data-translate="contact"><i class="fas fa-address-book"></i> Contact</a>
                 <div class="dropdown-content">
                     <div class="contact-info">
                         <p><i class="fas fa-phone"></i> (+226) 65 53 97 34</p>
@@ -755,7 +843,7 @@
             </div>
             
             <div class="dropdown">
-                <a href="#bientot" class="nav-link" data-translate="bientot">Bientôt</a>
+                <a href="#bientot" class="nav-link" data-translate="bientot"><i class="fas fa-hourglass-start"></i> Bientôt</a>
                 <div class="dropdown-content">
                     <a href="#" class="dropdown-item"><i class="fas fa-coins"></i>CRYPTO</a>
                     <a href="#" class="dropdown-item"><i class="fas fa-store"></i>PLACE DE MARCHÉ</a>
@@ -773,7 +861,7 @@
         <!-- Menu Mobile -->
         <div class="mobile-menu" id="mobileMenu">
             <div class="dropdown">
-                <a href="#services" class="nav-link" data-translate="services">Services</a>
+                <a href="#services" class="nav-link" data-translate="services"><i class="fas fa-wrench"></i> Services</a>
                 <div class="dropdown-content">
                     <div class="sub-category">Maintenance Professionnelle</div>
                     <a href="#" class="dropdown-item"><i class="fas fa-tools"></i>Packs de Maintenance</a>
@@ -796,7 +884,7 @@
             </div>
             
             <div class="dropdown">
-                <a href="#formation" class="nav-link" data-translate="formation">Formation</a>
+                <a href="#formation" class="nav-link" data-translate="formation"><i class="fas fa-graduation-cap"></i> Formation</a>
                 <div class="dropdown-content">
                     <div class="section-header">Formations en ligne & Formations en présentiel</div>
                     <a href="#" class="dropdown-item"><i class="fas fa-desktop"></i>Bureautique</a>
@@ -808,7 +896,7 @@
             </div>
             
             <div class="dropdown">
-                <a href="#coaching" class="nav-link" data-translate="coaching">Coaching/Mentorat</a>
+                <a href="#coaching" class="nav-link" data-translate="coaching"><i class="fas fa-chart-line"></i> Coaching/Mentorat</a>
                 <div class="dropdown-content">
                     <div class="section-header">Mentorat en ligne & Mentorat en présentiel</div>
                     <a href="#" class="dropdown-item"><i class="fas fa-briefcase"></i>Coaching Professionnel</a>
@@ -819,21 +907,21 @@
             </div>
             
             <div class="dropdown">
-                <a href="#communaute" class="nav-link" data-translate="communaute">Communauté</a>
+                <a href="#communaute" class="nav-link" data-translate="communaute"><i class="fas fa-users"></i> Communauté</a>
                 <div class="dropdown-content">
                     <a href="#" class="dropdown-item"><i class="fab fa-facebook"></i>Facebook</a>
                     <a href="#" class="dropdown-item"><i class="fab fa-telegram"></i>Telegram</a>
                     <a href="#" class="dropdown-item">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 0.8rem;">
                             <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/>
-                        </svg>X (Twitter)
+                        </svg> (Twitter)
                     </a>
                     <a href="#" class="dropdown-item"><i class="fab fa-whatsapp"></i>WhatsApp</a>
                 </div>
             </div>
             
             <div class="dropdown">
-                <a href="#contact" class="nav-link" data-translate="contact">Contact</a>
+                <a href="#contact" class="nav-link" data-translate="contact"><i class="fas fa-address-book"></i> Contact</a>
                 <div class="dropdown-content">
                     <div class="contact-info">
                         <p><i class="fas fa-phone"></i> (+226) 65 53 97 34</p>
@@ -846,7 +934,7 @@
             </div>
             
             <div class="dropdown">
-                <a href="#bientot" class="nav-link" data-translate="bientot">Bientôt</a>
+                <a href="#bientot" class="nav-link" data-translate="bientot"><i class="fas fa-hourglass-start"></i> Bientôt</a>
                 <div class="dropdown-content">
                     <a href="#" class="dropdown-item"><i class="fas fa-coins"></i>CRYPTO</a>
                     <a href="#" class="dropdown-item"><i class="fas fa-store"></i>PLACE DE MARCHÉ</a>
